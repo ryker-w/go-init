@@ -1,0 +1,19 @@
+
+name = "Iot LoraWAN bridge"
+
+version = "1.0.0"
+
+[web]
+listen = ":80"
+
+[mq]
+MQConn              = "amqp://crm:thingple@192.168.10.76:5672/"
+MQTopicLoraToInflux  = "LoraToInflux"
+
+[db]
+user = "postgres"
+password = "postgres"
+host = "192.168.10.252"
+port = 5432
+database = "go_init"
+ssl = "disable" #require/verify-full/verify-ca/disable
