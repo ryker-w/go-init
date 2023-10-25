@@ -2,33 +2,45 @@ package setup
 
 import (
 	"context"
-	"github.com/ryker-w/go-init/internal/process"
+	"fmt"
 )
 
-type componentHandler func(ctx context.Context) (err error)
+type contextHandler func(ctx context.Context) error
+type componentHandler func() error
 
+// 程序启动后做点事情。初始化执行
 func SomeWork(ctx context.Context) (err error) {
 
-	var handlers []componentHandler
-	handlers = append(handlers,
-		// ctx handlers
-		process.AmqpStart,
+	//component Handler
+	var componentHandlers []componentHandler
+	componentHandlers = append(componentHandlers,
+		componentDemo,
 	)
-	// 执行
-	for _, h := range handlers {
-		if err = h(ctx); err != nil {
+
+	for _, handler := range componentHandlers {
+		if err = handler(); err != nil {
 			return
 		}
 	}
 
-	components := []func() error{
-		// func handlers
-	}
-	// 执行
-	for _, component := range components {
-		if err = component(); err != nil {
+	// context Handler
+	var contextHandler []contextHandler
+	contextHandler = append(contextHandler,
+		contextDemo,
+	)
+	for _, handler := range contextHandler {
+		if err = handler(ctx); err != nil {
 			return
 		}
 	}
 	return
+}
+
+func componentDemo() error {
+	fmt.Println("handle componentDemo")
+	return nil
+}
+func contextDemo(ctx context.Context) error {
+	fmt.Println("handle contextDemo")
+	return nil
 }

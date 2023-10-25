@@ -1,11 +1,17 @@
 package etc
 
+// 全局环境变量配置。（按需添加）
 type Configuration struct {
-	Name    string `toml:"name"`
-	Version string `toml:"version"`
-	Db      db     `toml:"db"`
-	Web     web    `toml:"web"`
-	Mq      mq     `toml:"mq"`
+	Web   web   `toml:"web"`
+	Db    db    `toml:"db"`
+	Amqp  amqp  `toml:"amqp"`
+	Mqtt  mqtt  `toml:"mqtt"`
+	Redis redis `toml:"redis"`
+	Token token `toml:"token"`
+}
+
+type web struct {
+	Listen string `toml:"listen"`
 }
 
 type db struct {
@@ -14,14 +20,29 @@ type db struct {
 	Port     int    `toml:"port"`
 	User     string `toml:"user"`
 	Password string `toml:"password"`
-	Ssl		 string	`toml:"ssl"`
+	Ssl      string `toml:"ssl"`
 }
 
-type web struct {
-	Listen string `toml:"listen"`
+type amqp struct {
+	Conn string `toml:"conn"`
 }
 
-type mq struct {
-	MQConn              string
-	MQTopicLoraToInflux string
+type mqtt struct {
+	Broker   string `toml:"broker"`
+	UserName string `toml:"username"`
+	Password string `toml:"password"`
+}
+
+type redis struct {
+	Enable   bool   `toml:"enable"`
+	Addr     string `toml:"addr"`
+	Password string `toml:"password"`
+	// other
+}
+
+type token struct {
+	Enable bool   `toml:"enable"`
+	Issuer string `toml:"issuer"`
+	Key    string `toml:"key"`
+	Ttl    int    `toml:"ttl"`
 }

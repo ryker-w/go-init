@@ -1,19 +1,29 @@
-
-name = "Iot LoraWAN bridge"
-
-version = "1.0.0"
-
 [web]
 listen = ":80"
-
-[mq]
-MQConn              = "amqp://crm:thingple@192.168.10.76:5672/"
-MQTopicLoraToInflux  = "LoraToInflux"
 
 [db]
 user = "postgres"
 password = "postgres"
-host = "192.168.10.252"
+host = "localhost"
 port = 5432
 database = "go_init"
-ssl = "disable" #require/verify-full/verify-ca/disable
+ssl = "disable"       #require/verify-full/verify-ca/disable
+
+[amqp]
+conn = "amqp://user:pwd@localhost:5672/"
+
+[mqtt]
+broker = "tcp://localhost:1883"
+username = "admin"
+password = "mqttPWD_123456"
+
+[redis]
+enable = false
+addr = "localhost:6379"
+password = "redisPWD_123456"
+
+[token]
+enable = false
+issuer = "*.domain.com"
+key = "tokenKEY_123456"
+ttl = 10                #hours

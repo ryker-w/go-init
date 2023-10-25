@@ -1,6 +1,6 @@
 package cmd
 
 const (
-	AppName = "iot codec"
+	AppName = "go-init"
 	Version = "v0.0.1"
 )
